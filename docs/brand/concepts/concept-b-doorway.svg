@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NIVORA concept B: abstract doorway">
+  <title>Concept B — Abstract doorway</title>
+  <!-- A slab with an off-centre threshold cut out of it. Off-centre keeps it from
+       reading as a front door and turns it into an aperture: a way through. -->
+  <path fill="currentColor" fill-rule="evenodd" d="M15 12h34v40H15V12Zm22 40V36a4.5 4.5 0 1 1 9 0v16h-9Z"/>
+</svg>

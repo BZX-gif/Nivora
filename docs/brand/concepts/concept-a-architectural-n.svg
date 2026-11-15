@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NIVORA concept A: architectural N">
+  <title>Concept A — Architectural N</title>
+  <!-- An N whose right pier rises above the cap height, so the ascent is carried by
+       the structure of the letter rather than by an added roof glyph. -->
+  <path fill="currentColor" d="M12 54V18h7v25.2L45 8h7v46h-7V24.8L19 54h-7Z"/>
+</svg>

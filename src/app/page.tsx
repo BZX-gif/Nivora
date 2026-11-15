@@ -40,9 +40,14 @@ export default function HomePage() {
     <div>
       {/* ---------- Hero ---------- */}
       <section className="border-b border-line bg-mist">
-        <div className="mx-auto max-w-shell px-4 pb-12 pt-10 sm:px-6 lg:px-8 lg:pb-16 lg:pt-16">
-          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
-            <div>
+        <div className="mx-auto max-w-shell px-4 pb-10 pt-12 sm:px-6 sm:pt-16 lg:px-8 lg:pb-14 lg:pt-24">
+          {/*
+            Text and photograph form one band: both columns start on the same top
+            edge, and the trust row is anchored to the photograph's baseline via
+            mt-auto, so the composition closes on a single line.
+          */}
+          <div className="grid gap-8 sm:gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-14">
+            <div className="flex flex-col">
               <Reveal>
                 <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-medium text-stone2">
                   <span className="h-1.5 w-1.5 rounded-full bg-bronze" aria-hidden="true" />
@@ -56,8 +61,8 @@ export default function HomePage() {
                   the people advertising them.
                 </p>
               </Reveal>
-              <Reveal delay={0.1}>
-                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-stone2">
+              <Reveal delay={0.1} className="mt-7">
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-stone2">
                   <span className="inline-flex items-center gap-1.5">
                     <ShieldCheck className="h-4 w-4 text-bronze" aria-hidden="true" />
                     Advertiser types clearly labelled
@@ -70,36 +75,38 @@ export default function HomePage() {
               </Reveal>
             </div>
 
-            <Reveal delay={0.15}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-lift sm:aspect-[16/10] lg:aspect-[5/4]">
+            <Reveal delay={0.15} className="relative">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-lift sm:aspect-[16/10] lg:aspect-auto lg:h-[420px]">
                 <SafeImage
                   src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop"
                   alt="A beautiful home at dusk in Jaipur"
                   priority
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-3 rounded-2xl border border-line bg-white/95 px-4 py-3 shadow-lift backdrop-blur-sm sm:bottom-4 sm:left-4 sm:right-auto sm:justify-start sm:gap-5 sm:px-5 sm:py-3.5">
-                  <div>
-                    <p className="font-serif text-xl leading-none text-ink">{DEMO_PROPERTIES.length}</p>
-                    <p className="mt-1 text-[11px] text-muted">Demo properties</p>
-                  </div>
-                  <div className="h-8 w-px bg-line" aria-hidden="true" />
-                  <div>
-                    <p className="font-serif text-xl leading-none text-ink">{Object.keys(DEMO_LOCALITY_META).length}</p>
-                    <p className="mt-1 text-[11px] text-muted">Localities</p>
-                  </div>
-                  <div className="h-8 w-px bg-line" aria-hidden="true" />
-                  <div>
-                    <p className="font-serif text-xl leading-none text-ink">Jaipur</p>
-                    <p className="mt-1 text-[11px] text-muted">Demo market</p>
-                  </div>
+              </div>
+              {/* Below lg the card sits under the photo; on desktop it rests on the
+                  photo's lower-left corner so it never covers the subject. */}
+              <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-line bg-white px-4 py-3 shadow-card sm:justify-start sm:gap-6 sm:px-5 lg:absolute lg:-bottom-6 lg:left-8 lg:mt-0 lg:shadow-lift">
+                <div>
+                  <p className="font-serif text-xl leading-none text-ink">{DEMO_PROPERTIES.length}</p>
+                  <p className="mt-1 text-[11px] text-muted">Demo properties</p>
+                </div>
+                <div className="h-8 w-px bg-line" aria-hidden="true" />
+                <div>
+                  <p className="font-serif text-xl leading-none text-ink">{Object.keys(DEMO_LOCALITY_META).length}</p>
+                  <p className="mt-1 text-[11px] text-muted">Localities</p>
+                </div>
+                <div className="h-8 w-px bg-line" aria-hidden="true" />
+                <div>
+                  <p className="font-serif text-xl leading-none text-ink">Jaipur</p>
+                  <p className="mt-1 text-[11px] text-muted">Demo market</p>
                 </div>
               </div>
             </Reveal>
           </div>
 
           <Reveal delay={0.2}>
-            <div className="mt-10">
+            <div className="mt-8 lg:mt-12">
               <SearchBar />
             </div>
           </Reveal>
