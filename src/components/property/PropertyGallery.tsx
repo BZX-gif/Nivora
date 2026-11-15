@@ -50,7 +50,7 @@ export function PropertyGallery({
     <div>
       <div className="relative overflow-hidden rounded-3xl bg-mist">
         <div
-          className="relative aspect-[16/10] w-full"
+          className="relative aspect-[4/3] w-full sm:aspect-[16/10] lg:max-h-[600px]"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
@@ -66,7 +66,7 @@ export function PropertyGallery({
 
         <button
           onClick={() => setLightbox(true)}
-          className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink backdrop-blur-sm transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+          className="absolute bottom-4 right-4 flex min-h-[40px] items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink backdrop-blur-sm transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
         >
           <Expand className="h-4 w-4" aria-hidden="true" />
           View photos ({images.length})

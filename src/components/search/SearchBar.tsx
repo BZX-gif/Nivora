@@ -25,19 +25,23 @@ function Field({
   label,
   value,
   onChange,
+  className = "",
   children,
 }: {
   id: string;
   label: string;
   value: string;
   onChange: (v: string) => void;
+  className?: string;
   children: ReactNode;
 }) {
   return (
-    <div className="min-w-0 rounded-2xl bg-mist px-4 py-2 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-ink/15">
+    <div
+      className={`min-w-0 rounded-2xl bg-mist px-3.5 py-2 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-ink/15 ${className}`}
+    >
       <label
         htmlFor={id}
-        className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-muted"
+        className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-muted"
       >
         {label}
       </label>
@@ -46,7 +50,8 @@ function Field({
           id={id}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="h-10 w-full cursor-pointer appearance-none truncate bg-transparent pr-7 text-[15px] font-medium text-ink focus:outline-none"
+          title={value || undefined}
+          className="h-10 w-full cursor-pointer appearance-none truncate bg-transparent pr-6 text-[15px] font-medium text-ink focus:outline-none"
         >
           {children}
         </select>
@@ -70,7 +75,7 @@ export function SearchBar() {
 
   const changeType = (t: ListingType) => {
     setType(t);
-    setBudget("Any budget"); // budget ranges differ between buy and rent
+    setBudget("Any budget"); // buy and rent ranges are different scales
   };
 
   const submit = (e: React.FormEvent) => {
@@ -88,31 +93,40 @@ export function SearchBar() {
   return (
     <form
       onSubmit={submit}
-      className="w-full rounded-3xl border border-line bg-white p-3 shadow-lift"
+      className="w-full rounded-3xl border border-line bg-white p-2.5 shadow-lift"
       role="search"
       aria-label="Search properties"
     >
-      {/* Buy / Rent segmented control */}
-      <div className="flex rounded-full bg-mist p-1" role="tablist" aria-label="Buy or rent">
-        {(["buy", "rent"] as ListingType[]).map((t) => (
-          <button
-            key={t}
-            type="button"
-            role="tab"
-            aria-selected={type === t}
-            onClick={() => changeType(t)}
-            className={`h-10 flex-1 rounded-full text-[15px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink ${
-              type === t ? "bg-ink text-white shadow" : "text-stone2 hover:text-ink"
-            }`}
-          >
-            {t === "buy" ? "Buy" : "Rent"}
-          </button>
-        ))}
-      </div>
+      <div className="grid grid-cols-2 gap-2 lg:grid-cols-[auto_1.4fr_1fr_1fr_auto] lg:items-stretch">
+        {/* Buy / Rent — full width on mobile, compact pill on desktop */}
+        <div
+          className="col-span-2 flex rounded-2xl bg-mist p-1 lg:col-span-1 lg:self-stretch"
+          role="tablist"
+          aria-label="Buy or rent"
+        >
+          {(["buy", "rent"] as ListingType[]).map((t) => (
+            <button
+              key={t}
+              type="button"
+              role="tab"
+              aria-selected={type === t}
+              onClick={() => changeType(t)}
+              className={`h-10 flex-1 rounded-xl text-[15px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink lg:flex-none lg:px-6 ${
+                type === t ? "bg-ink text-white shadow-sm" : "text-stone2 hover:text-ink"
+              }`}
+            >
+              {t === "buy" ? "Buy" : "Rent"}
+            </button>
+          ))}
+        </div>
 
-      {/* Fields — stacked on mobile, one row on desktop */}
-      <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-[1.3fr_1fr_1fr_auto] md:items-stretch">
-        <Field id="search-locality" label="Locality" value={locality} onChange={setLocality}>
+        <Field
+          id="search-locality"
+          label="Locality"
+          value={locality}
+          onChange={setLocality}
+          className="col-span-2 lg:col-span-1"
+        >
           <option value="">City or locality</option>
           {LOCALITIES.map((l) => (
             <option key={l} value={l}>
@@ -140,7 +154,7 @@ export function SearchBar() {
 
         <button
           type="submit"
-          className="flex h-12 items-center justify-center gap-2 rounded-2xl bg-ink px-8 text-[15px] font-medium text-white transition hover:bg-coal active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 md:h-full md:min-w-[150px]"
+          className="col-span-2 flex h-12 items-center justify-center gap-2 rounded-2xl bg-ink px-6 text-[15px] font-medium text-white transition hover:bg-coal active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 lg:col-span-1 lg:h-auto lg:min-w-[132px]"
         >
           <Search className="h-4 w-4" aria-hidden="true" />
           Search

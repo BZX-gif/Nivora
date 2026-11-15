@@ -65,7 +65,7 @@ export default function PropertyDetailPage({ params }: PageProps) {
     <div className="mx-auto max-w-shell px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
       <Link
         href={p.listingType === "buy" ? "/buy" : "/rent"}
-        className="inline-flex items-center gap-2 text-sm font-medium text-stone2 transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink rounded-full"
+        className="inline-flex items-center gap-2 rounded-full py-2 text-sm font-medium text-stone2 transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Back to results
       </Link>

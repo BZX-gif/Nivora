@@ -48,7 +48,7 @@ export default function HomePage() {
                   <span className="h-1.5 w-1.5 rounded-full bg-bronze" aria-hidden="true" />
                   Jaipur demo marketplace
                 </p>
-                <h1 className="mt-6 font-serif text-[42px] leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-[64px]">
+                <h1 className="mt-6 text-balance font-serif text-[40px] leading-[1.06] tracking-tight text-ink sm:text-[52px] lg:text-[56px] xl:text-[64px]">
                   Find a place that feels like yours.
                 </h1>
                 <p className="mt-5 max-w-lg text-lg leading-relaxed text-stone2">
@@ -71,7 +71,7 @@ export default function HomePage() {
             </div>
 
             <Reveal delay={0.15}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-lift lg:aspect-[5/4]">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-lift sm:aspect-[16/10] lg:aspect-[5/4]">
                 <SafeImage
                   src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop"
                   alt="A beautiful home at dusk in Jaipur"
@@ -230,7 +230,7 @@ export default function HomePage() {
                   <p className="mt-2 max-w-sm text-[15px] text-white/80">
                     Compare advertised prices across localities and contact the advertiser directly.
                   </p>
-                  <ButtonLink href="/buy" className="mt-5 bg-white text-ink hover:bg-mist">
+                  <ButtonLink href="/buy" variant="light" className="mt-5">
                     Browse properties for sale <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </ButtonLink>
                 </div>
@@ -252,7 +252,7 @@ export default function HomePage() {
                   <p className="mt-2 max-w-sm text-[15px] text-white/80">
                     Filter by budget, furnishing and locality — then reach out to the advertiser.
                   </p>
-                  <ButtonLink href="/rent" className="mt-5 bg-white text-ink hover:bg-mist">
+                  <ButtonLink href="/rent" variant="light" className="mt-5">
                     Browse properties for rent <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </ButtonLink>
                 </div>
@@ -337,10 +337,10 @@ export default function HomePage() {
           </Reveal>
           <Reveal delay={0.1}>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <ButtonLink href="/list-property" size="lg" className="bg-white text-ink hover:bg-mist">
+              <ButtonLink href="/list-property" size="lg" variant="light">
                 List your property <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </ButtonLink>
-              <ButtonLink href="/about" variant="ghost" size="lg" className="text-white hover:bg-white/10">
+              <ButtonLink href="/about" variant="ghostlight" size="lg">
                 How listing works
               </ButtonLink>
             </div>

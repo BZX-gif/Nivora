@@ -104,7 +104,7 @@ export function PropertyCard({ property: p, highlighted = false, onHover, onSele
           onClick={handleFav}
           aria-label={fav ? "Remove from saved properties" : "Save this property"}
           aria-pressed={fav}
-          className={`absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full backdrop-blur-sm transition-all duration-200 active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink ${
+          className={`absolute right-2.5 top-2.5 flex h-11 w-11 items-center justify-center rounded-full backdrop-blur-sm transition-all duration-200 active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink ${
             fav ? "bg-ink text-white" : "bg-white/90 text-ink hover:bg-white"
           }`}
         >
@@ -120,11 +120,11 @@ export function PropertyCard({ property: p, highlighted = false, onHover, onSele
           className="block rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
           aria-label={`View details: ${p.title}`}
         >
-          <div className="flex items-baseline justify-between gap-3">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
             <p className="text-xl font-semibold tracking-tight text-ink">
               {formatPrice(p.price, p.listingType)}
             </p>
-            <span className="shrink-0 text-[11px] font-medium text-muted">{p.advertiser.type}</span>
+            <span className="text-[11px] font-medium text-muted">{p.advertiser.type}</span>
           </div>
           <h3 className="mt-1.5 line-clamp-2 min-h-[2.6em] text-[15px] font-medium leading-snug text-ink">
             {p.title}
@@ -147,7 +147,6 @@ export function PropertyCard({ property: p, highlighted = false, onHover, onSele
             <span className="inline-flex items-center gap-1.5">
               <Maximize className="h-3.5 w-3.5" aria-hidden="true" /> {formatArea(p.areaSqft)}
             </span>
-            {p.furnishing && <span className="text-muted">{p.furnishing}</span>}
           </div>
         </Link>
       </div>

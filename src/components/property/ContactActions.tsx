@@ -151,7 +151,7 @@ export function ReportListing({ title }: { title: string }) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-stone2 transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink rounded"
+        className="mt-4 inline-flex min-h-[36px] items-center gap-1.5 rounded text-sm font-medium text-stone2 transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
       >
         <Flag className="h-4 w-4" aria-hidden="true" /> Report this listing
       </button>

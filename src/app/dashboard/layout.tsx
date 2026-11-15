@@ -21,8 +21,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="mx-auto max-w-shell px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
       <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
-        <nav aria-label="Dashboard" className="lg:sticky lg:top-24 lg:self-start">
-          <div className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible lg:pb-0">
+        <nav aria-label="Dashboard" className="min-w-0 lg:sticky lg:top-24 lg:self-start">
+          <div className="flex w-full min-w-0 gap-2 overflow-x-auto pb-1 [scrollbar-width:none] lg:flex-col lg:overflow-visible lg:pb-0">
             {LINKS.map((l) => (
               <Link
                 key={l.href}

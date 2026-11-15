@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Building2, Check, ChevronLeft, ChevronRight, ImagePlus, Trash2, Upload, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Building2, Check, ChevronLeft, ChevronRight, ImagePlus, KeyRound, Tag, Trash2, Upload, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { PropertyCard } from "@/components/property/PropertyCard";
@@ -24,8 +24,8 @@ const AMENITY_OPTIONS = [
 ];
 
 interface Draft {
-  listingType: ListingType;
-  category: PropertyCategory;
+  listingType: ListingType | "";
+  category: PropertyCategory | "";
   city: string;
   locality: string;
   address: string;
@@ -48,8 +48,8 @@ interface Draft {
 }
 
 const EMPTY_DRAFT: Draft = {
-  listingType: "buy",
-  category: "Apartment",
+  listingType: "",
+  category: "",
   city: "Jaipur",
   locality: "",
   address: "",
@@ -72,7 +72,7 @@ const EMPTY_DRAFT: Draft = {
 };
 
 const STEPS = [
-  "Purpose",
+  "Sale or rent",
   "Property type",
   "Location",
   "Property details",
@@ -147,6 +147,12 @@ export function ListingWizard() {
 
   const validateStep = (s: number): boolean => {
     const e: Record<string, string> = {};
+    if (s === 0) {
+      if (!draft.listingType) e.listingType = "Please choose whether you are selling or renting.";
+    }
+    if (s === 1) {
+      if (!draft.category) e.category = "Please choose a property type.";
+    }
     if (s === 2) {
       if (!draft.locality) e.locality = "Please choose a locality.";
       if (!draft.address.trim()) e.address = "Please enter an approximate address.";
@@ -234,12 +240,12 @@ export function ListingWizard() {
         ? `Residential plot in ${draft.locality}`
         : draft.category === "Commercial"
           ? `Commercial space in ${draft.locality}`
-          : `${draft.bedrooms || ""}${draft.bedrooms ? "BHK " : ""}${draft.category.toLowerCase()} in ${draft.locality}`.trim();
+          : `${draft.bedrooms || ""}${draft.bedrooms ? "BHK " : ""}${(draft.category || "property").toLowerCase()} in ${draft.locality}`.trim();
     return {
       id: `user-${Date.now()}`,
       title,
-      listingType: draft.listingType,
-      category: draft.category,
+      listingType: draft.listingType === "rent" ? "rent" : "buy",
+      category: (draft.category || "Apartment") as PropertyCategory,
       price: Number(draft.price),
       locality: draft.locality,
       city: draft.city || "Jaipur",
@@ -285,8 +291,30 @@ export function ListingWizard() {
 
   return (
     <div>
-      {/* Progress */}
-      <ol className="flex flex-wrap gap-2" aria-label="Listing progress">
+      {/* Progress — a single compact line on phones, the full stepper from sm up */}
+      <div className="sm:hidden">
+        <div className="flex items-baseline justify-between gap-3">
+          <p className="text-sm font-medium text-ink">
+            Step {step + 1} of {STEPS.length}
+          </p>
+          <p className="truncate text-sm text-muted">{STEPS[step]}</p>
+        </div>
+        <div
+          className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-mist"
+          role="progressbar"
+          aria-valuenow={step + 1}
+          aria-valuemin={1}
+          aria-valuemax={STEPS.length}
+          aria-label={`Listing progress: step ${step + 1} of ${STEPS.length}`}
+        >
+          <div
+            className="h-full rounded-full bg-ink transition-[width] duration-300 ease-out"
+            style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
+          />
+        </div>
+      </div>
+
+      <ol className="hidden flex-wrap gap-2 sm:flex" aria-label="Listing progress">
         {STEPS.map((label, i) => (
           <li key={label} className="flex items-center gap-2">
             <span
@@ -317,8 +345,8 @@ export function ListingWizard() {
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {(
                 [
-                  { value: "buy" as ListingType, title: "Sell", text: "I want to sell my property" },
-                  { value: "rent" as ListingType, title: "Rent", text: "I want to rent out my property" },
+                  { value: "buy" as ListingType, title: "Sell", text: "I want to sell my property", icon: Tag },
+                  { value: "rent" as ListingType, title: "Rent", text: "I want to rent out my property", icon: KeyRound },
                 ] as const
               ).map((opt) => (
                 <button
@@ -330,12 +358,17 @@ export function ListingWizard() {
                     draft.listingType === opt.value ? "border-ink bg-mist" : "border-line hover:border-ink/40"
                   }`}
                 >
-                  <Building2 className="h-7 w-7 text-bronze" aria-hidden="true" />
+                  <opt.icon className="h-7 w-7 text-bronze" aria-hidden="true" />
                   <p className="mt-3 font-serif text-xl text-ink">{opt.title}</p>
                   <p className="mt-1 text-sm text-stone2">{opt.text}</p>
                 </button>
               ))}
             </div>
+            {errors.listingType && (
+              <p role="alert" className="mt-4 text-sm text-red-700">
+                {errors.listingType}
+              </p>
+            )}
           </fieldset>
         )}
 
@@ -357,6 +390,11 @@ export function ListingWizard() {
                 </button>
               ))}
             </div>
+            {errors.category && (
+              <p role="alert" className="mt-4 text-sm text-red-700">
+                {errors.category}
+              </p>
+            )}
           </fieldset>
         )}
 
@@ -471,12 +509,12 @@ export function ListingWizard() {
           <div>
             <h3 className="font-serif text-2xl text-ink">Advertised price</h3>
             <p className="mt-2 text-[15px] text-stone2">
-              {draft.listingType === "buy" ? "The total advertised price in ₹." : "The monthly rent in ₹."} Be honest — visitors compare advertised prices.
+              {draft.listingType === "rent" ? "The monthly rent in ₹." : "The total advertised price in ₹."} Be honest — visitors compare advertised prices.
             </p>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="wz-price" className={labelClass}>Price (₹) *</label>
-                <input id="wz-price" type="number" min={1} value={draft.price} onChange={(e) => set("price", e.target.value)} placeholder={draft.listingType === "buy" ? "e.g. 8500000" : "e.g. 28000"} className={inputClass} />
+                <input id="wz-price" type="number" min={1} value={draft.price} onChange={(e) => set("price", e.target.value)} placeholder={draft.listingType === "rent" ? "e.g. 28000" : "e.g. 8500000"} className={inputClass} />
                 {errors.price && <p role="alert" className="mt-1.5 text-sm text-red-700">{errors.price}</p>}
               </div>
               <div>
@@ -676,7 +714,7 @@ export function ListingWizard() {
             }
             toast.push("Draft cleared");
           }}
-          className="mt-4 inline-flex items-center gap-1.5 text-sm text-muted transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink rounded"
+          className="mt-4 inline-flex items-center gap-1.5 rounded py-2 text-sm text-muted transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
         >
           <X className="h-4 w-4" aria-hidden="true" /> Discard draft and start over
         </button>

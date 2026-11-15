@@ -43,7 +43,7 @@ export function Logo({ variant = "horizontal", theme = "dark", className = "", h
 
   if (!href) return <span className={className}>{inner}</span>;
   return (
-    <Link href={href} className={`inline-flex rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 ${className}`} aria-label="NIVORA home">
+    <Link href={href} className={`inline-flex min-h-[44px] items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 ${className}`} aria-label="NIVORA home">
       {inner}
     </Link>
   );

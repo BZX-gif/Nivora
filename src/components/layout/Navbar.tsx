@@ -58,7 +58,7 @@ export function Navbar() {
                 key={l.href}
                 href={l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
-                className={`rounded-full px-4 py-2 text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink ${
+                className={`rounded-full px-4 py-2.5 text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink ${
                   isActive(l.href) ? "bg-mist text-ink" : "text-stone2 hover:bg-mist hover:text-ink"
                 }`}
               >
@@ -71,7 +71,7 @@ export function Navbar() {
             <Link
               href="/saved"
               aria-label="Saved properties"
-              className="hidden h-10 w-10 items-center justify-center rounded-full text-stone2 transition hover:bg-mist hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink sm:flex"
+              className="hidden h-11 w-11 items-center justify-center rounded-full text-stone2 transition hover:bg-mist hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink sm:flex"
             >
               <Heart className="h-5 w-5" />
             </Link>
@@ -90,7 +90,7 @@ export function Navbar() {
                   onClick={() => setAccountOpen((v) => !v)}
                   aria-expanded={accountOpen}
                   aria-haspopup="menu"
-                  className="flex h-10 items-center gap-2 rounded-full border border-line bg-white pl-1.5 pr-3 text-sm font-medium text-ink transition hover:border-ink/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+                  className="flex h-11 items-center gap-2 rounded-full border border-line bg-white pl-1.5 pr-3 text-sm font-medium text-ink transition hover:border-ink/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
                 >
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-ink text-xs font-semibold text-white">
                     {user.name.charAt(0).toUpperCase()}
@@ -142,7 +142,7 @@ export function Navbar() {
             ) : (
               <Link
                 href="/sign-in"
-                className="hidden h-10 items-center rounded-full bg-ink px-5 text-sm font-medium text-white transition hover:bg-coal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 sm:inline-flex"
+                className="hidden h-11 items-center rounded-full bg-ink px-5 text-sm font-medium text-white transition hover:bg-coal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 sm:inline-flex"
               >
                 Sign in
               </Link>
@@ -151,7 +151,7 @@ export function Navbar() {
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
-              className="flex h-10 w-10 items-center justify-center rounded-full text-ink transition hover:bg-mist focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-ink transition hover:bg-mist focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink lg:hidden"
             >
               <Menu className="h-5 w-5" />
             </button>
