@@ -54,7 +54,10 @@ function DiscoveryInner({ defaultType, defaultView = "list", title, subtitle }: 
     [filters, sort]
   );
 
-  const activeCount = countActiveFilters(filters, { ...DEFAULT_FILTERS, listingType: defaultType });
+  const baseFilters = { ...DEFAULT_FILTERS, listingType: defaultType };
+  // The search field is its own visible control, so it is not counted as a drawer
+  // filter — otherwise the Filters badge contradicts an empty drawer.
+  const activeCount = countActiveFilters({ ...filters, query: "" }, { ...baseFilters, query: "" });
 
   const handleSelect = (id: string) => {
     setSelectedId(id);

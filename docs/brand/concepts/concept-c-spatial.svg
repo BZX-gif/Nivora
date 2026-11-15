@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NIVORA concept C: geometric spatial symbol">
+  <title>Concept C — Geometric spatial symbol</title>
+  <!-- A plan boundary with one side open and a diagonal passage through it: the plot
+       is legible at large sizes, the diagonal carries the mark at small ones. -->
+  <path fill="currentColor" fill-rule="evenodd" d="M10 10h44v9H19v26h35v9H10V10Zm13 31 21-21 6.5 6.5-21 21L23 41Z"/>
+</svg>
