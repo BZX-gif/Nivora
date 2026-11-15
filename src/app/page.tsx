@@ -25,68 +25,82 @@ const CATEGORIES: PropertyCategory[] = ["Apartment", "Independent House", "Villa
 
 export default function HomePage() {
   const featured = DEMO_PROPERTIES.filter((p) => p.featured).slice(0, 3);
-  const popularLocalities = Object.keys(DEMO_LOCALITY_META).slice(0, 6);
+  const popularLocalities = [
+    "Vaishali Nagar",
+    "Mansarovar",
+    "Malviya Nagar",
+    "Jagatpura",
+    "C-Scheme",
+    "Ajmer Road",
+    "Tonk Road",
+    "Bani Park",
+  ];
 
   return (
     <div>
       {/* ---------- Hero ---------- */}
       <section className="border-b border-line bg-mist">
-        <div className="mx-auto grid max-w-shell items-center gap-10 px-4 pb-14 pt-10 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:px-8 lg:pb-20 lg:pt-16">
-          <div>
-            <Reveal>
-              <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-medium text-stone2">
-                <span className="h-1.5 w-1.5 rounded-full bg-bronze" aria-hidden="true" />
-                Jaipur demo marketplace
-              </p>
-              <h1 className="mt-6 font-serif text-[42px] leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-[64px]">
-                Find a place that feels like yours.
-              </h1>
-              <p className="mt-5 max-w-lg text-lg leading-relaxed text-stone2">
-                Discover properties, explore neighbourhoods, and connect directly with
-                the people advertising them.
-              </p>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div className="mt-8">
-                <SearchBar />
-              </div>
-              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-stone2">
-                <span className="inline-flex items-center gap-1.5">
-                  <ShieldCheck className="h-4 w-4 text-bronze" aria-hidden="true" />
-                  Advertiser types clearly labelled
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Handshake className="h-4 w-4 text-bronze" aria-hidden="true" />
-                  Contact advertisers directly
-                </span>
+        <div className="mx-auto max-w-shell px-4 pb-12 pt-10 sm:px-6 lg:px-8 lg:pb-16 lg:pt-16">
+          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
+            <div>
+              <Reveal>
+                <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-medium text-stone2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-bronze" aria-hidden="true" />
+                  Jaipur demo marketplace
+                </p>
+                <h1 className="mt-6 text-balance font-serif text-[40px] leading-[1.06] tracking-tight text-ink sm:text-[52px] lg:text-[56px] xl:text-[64px]">
+                  Find a place that feels like yours.
+                </h1>
+                <p className="mt-5 max-w-lg text-lg leading-relaxed text-stone2">
+                  Discover properties, explore neighbourhoods, and connect directly with
+                  the people advertising them.
+                </p>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-stone2">
+                  <span className="inline-flex items-center gap-1.5">
+                    <ShieldCheck className="h-4 w-4 text-bronze" aria-hidden="true" />
+                    Advertiser types clearly labelled
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Handshake className="h-4 w-4 text-bronze" aria-hidden="true" />
+                    Contact advertisers directly
+                  </span>
+                </div>
+              </Reveal>
+            </div>
+
+            <Reveal delay={0.15}>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-lift sm:aspect-[16/10] lg:aspect-[5/4]">
+                <SafeImage
+                  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop"
+                  alt="A beautiful home at dusk in Jaipur"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-3 rounded-2xl border border-line bg-white/95 px-4 py-3 shadow-lift backdrop-blur-sm sm:bottom-4 sm:left-4 sm:right-auto sm:justify-start sm:gap-5 sm:px-5 sm:py-3.5">
+                  <div>
+                    <p className="font-serif text-xl leading-none text-ink">{DEMO_PROPERTIES.length}</p>
+                    <p className="mt-1 text-[11px] text-muted">Demo properties</p>
+                  </div>
+                  <div className="h-8 w-px bg-line" aria-hidden="true" />
+                  <div>
+                    <p className="font-serif text-xl leading-none text-ink">{Object.keys(DEMO_LOCALITY_META).length}</p>
+                    <p className="mt-1 text-[11px] text-muted">Localities</p>
+                  </div>
+                  <div className="h-8 w-px bg-line" aria-hidden="true" />
+                  <div>
+                    <p className="font-serif text-xl leading-none text-ink">Jaipur</p>
+                    <p className="mt-1 text-[11px] text-muted">Demo market</p>
+                  </div>
+                </div>
               </div>
             </Reveal>
           </div>
 
-          <Reveal delay={0.15} className="relative">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-lift lg:aspect-[5/4]">
-              <SafeImage
-                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop"
-                alt="A beautiful home at dusk in Jaipur"
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-            <div className="absolute -bottom-5 left-5 right-5 flex items-center justify-between rounded-2xl border border-line bg-white/95 px-5 py-4 shadow-lift backdrop-blur-sm sm:left-8 sm:right-auto sm:gap-10">
-              <div>
-                <p className="font-serif text-2xl text-ink">{DEMO_PROPERTIES.length}</p>
-                <p className="text-xs text-muted">Demo properties</p>
-              </div>
-              <div className="h-8 w-px bg-line" aria-hidden="true" />
-              <div>
-                <p className="font-serif text-2xl text-ink">{Object.keys(DEMO_LOCALITY_META).length}</p>
-                <p className="text-xs text-muted">Localities</p>
-              </div>
-              <div className="h-8 w-px bg-line" aria-hidden="true" />
-              <div>
-                <p className="font-serif text-2xl text-ink">Jaipur</p>
-                <p className="text-xs text-muted">Demo market</p>
-              </div>
+          <Reveal delay={0.2}>
+            <div className="mt-10">
+              <SearchBar />
             </div>
           </Reveal>
         </div>
@@ -165,7 +179,7 @@ export default function HomePage() {
             message="Explore demo properties by locality. Marker locations are illustrative, not exact addresses."
           />
         </Reveal>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {popularLocalities.map((loc, i) => {
             const count = DEMO_PROPERTIES.filter((p) => p.locality === loc).length;
             return (
@@ -216,7 +230,7 @@ export default function HomePage() {
                   <p className="mt-2 max-w-sm text-[15px] text-white/80">
                     Compare advertised prices across localities and contact the advertiser directly.
                   </p>
-                  <ButtonLink href="/buy" className="mt-5 bg-white text-ink hover:bg-mist">
+                  <ButtonLink href="/buy" variant="light" className="mt-5">
                     Browse properties for sale <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </ButtonLink>
                 </div>
@@ -238,7 +252,7 @@ export default function HomePage() {
                   <p className="mt-2 max-w-sm text-[15px] text-white/80">
                     Filter by budget, furnishing and locality — then reach out to the advertiser.
                   </p>
-                  <ButtonLink href="/rent" className="mt-5 bg-white text-ink hover:bg-mist">
+                  <ButtonLink href="/rent" variant="light" className="mt-5">
                     Browse properties for rent <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </ButtonLink>
                 </div>
@@ -323,10 +337,10 @@ export default function HomePage() {
           </Reveal>
           <Reveal delay={0.1}>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <ButtonLink href="/list-property" size="lg" className="bg-white text-ink hover:bg-mist">
+              <ButtonLink href="/list-property" size="lg" variant="light">
                 List your property <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </ButtonLink>
-              <ButtonLink href="/about" variant="ghost" size="lg" className="text-white hover:bg-white/10">
+              <ButtonLink href="/about" variant="ghostlight" size="lg">
                 How listing works
               </ButtonLink>
             </div>

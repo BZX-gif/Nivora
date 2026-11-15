@@ -58,7 +58,7 @@ export function Navbar() {
                 key={l.href}
                 href={l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
-                className={`rounded-full px-4 py-2 text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink ${
+                className={`rounded-full px-4 py-2.5 text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink ${
                   isActive(l.href) ? "bg-mist text-ink" : "text-stone2 hover:bg-mist hover:text-ink"
                 }`}
               >
@@ -71,18 +71,26 @@ export function Navbar() {
             <Link
               href="/saved"
               aria-label="Saved properties"
-              className="hidden h-10 w-10 items-center justify-center rounded-full text-stone2 transition hover:bg-mist hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink sm:flex"
+              className="hidden h-11 w-11 items-center justify-center rounded-full text-stone2 transition hover:bg-mist hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink sm:flex"
             >
               <Heart className="h-5 w-5" />
             </Link>
 
             {user ? (
               <div className="relative">
+                {accountOpen && (
+                  <button
+                    aria-label="Close account menu"
+                    onClick={() => setAccountOpen(false)}
+                    className="fixed inset-0 z-10 cursor-default"
+                    tabIndex={-1}
+                  />
+                )}
                 <button
                   onClick={() => setAccountOpen((v) => !v)}
                   aria-expanded={accountOpen}
                   aria-haspopup="menu"
-                  className="flex h-10 items-center gap-2 rounded-full border border-line bg-white pl-1.5 pr-3 text-sm font-medium text-ink transition hover:border-ink/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+                  className="flex h-11 items-center gap-2 rounded-full border border-line bg-white pl-1.5 pr-3 text-sm font-medium text-ink transition hover:border-ink/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
                 >
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-ink text-xs font-semibold text-white">
                     {user.name.charAt(0).toUpperCase()}
@@ -97,7 +105,7 @@ export function Navbar() {
                       exit={{ opacity: 0, y: 6, scale: 0.98 }}
                       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                       role="menu"
-                      className="absolute right-0 top-12 w-56 overflow-hidden rounded-2xl border border-line bg-white py-2 shadow-pop"
+                      className="absolute right-0 top-12 z-20 w-56 overflow-hidden rounded-2xl border border-line bg-white py-2 shadow-pop"
                     >
                       <p className="border-b border-line px-4 py-2.5 text-xs text-muted">
                         Signed in as <span className="font-medium text-ink">{user.email}</span>
@@ -134,7 +142,7 @@ export function Navbar() {
             ) : (
               <Link
                 href="/sign-in"
-                className="hidden h-10 items-center rounded-full bg-ink px-5 text-sm font-medium text-white transition hover:bg-coal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 sm:inline-flex"
+                className="hidden h-11 items-center rounded-full bg-ink px-5 text-sm font-medium text-white transition hover:bg-coal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 sm:inline-flex"
               >
                 Sign in
               </Link>
@@ -143,7 +151,7 @@ export function Navbar() {
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
-              className="flex h-10 w-10 items-center justify-center rounded-full text-ink transition hover:bg-mist focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-ink transition hover:bg-mist focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink lg:hidden"
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -230,7 +238,7 @@ export function Navbar() {
           {[
             { href: "/", label: "Home", icon: Home, active: pathname === "/" },
             { href: "/buy", label: "Buy", icon: KeyRound, active: isActive("/buy") },
-            { href: "/rent", label: "Rent", icon: Home, active: isActive("/rent") },
+            { href: "/rent", label: "Rent", icon: Building2, active: isActive("/rent") },
             { href: "/saved", label: "Saved", icon: Heart, active: isActive("/saved") },
             { href: user ? "/account" : "/sign-in", label: "Account", icon: User, active: isActive("/account") || isActive("/dashboard") },
           ].map((l) => (

@@ -8,7 +8,7 @@ import type { ListingStatus } from "@/types/property";
 
 /* ---------------- Buttons ---------------- */
 
-type ButtonVariant = "primary" | "outline" | "ghost" | "dark" | "bronze";
+type ButtonVariant = "primary" | "outline" | "ghost" | "dark" | "bronze" | "light" | "ghostlight";
 
 const buttonStyles: Record<ButtonVariant, string> = {
   primary: "bg-ink text-white hover:bg-coal",
@@ -16,6 +16,10 @@ const buttonStyles: Record<ButtonVariant, string> = {
   bronze: "bg-bronze text-white hover:bg-bronzedark",
   outline: "border border-line bg-white text-ink hover:border-ink/40",
   ghost: "text-ink hover:bg-mist",
+  /** White pill on photography / dark panels */
+  light: "bg-white text-ink hover:bg-mist",
+  /** Text button for dark panels */
+  ghostlight: "text-white hover:bg-white/10",
 };
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -153,7 +157,7 @@ export function SectionHeading({
       {eyebrow && (
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-bronze">{eyebrow}</p>
       )}
-      <h2 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">{title}</h2>
+      <h2 className="mt-3 text-balance font-serif text-3xl leading-tight text-ink sm:text-4xl">{title}</h2>
       {message && <p className="mt-3 text-[15px] leading-relaxed text-stone2 sm:text-base">{message}</p>}
     </div>
   );

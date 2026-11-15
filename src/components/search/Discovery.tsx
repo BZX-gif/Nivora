@@ -2,8 +2,8 @@
 
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
-import { ArrowUpDown, List, Map as MapIcon, Search, SlidersHorizontal, X } from "lucide-react";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowUpDown, ChevronDown, List, Map as MapIcon, Search, SlidersHorizontal, X } from "lucide-react";
+import { Suspense, useMemo, useRef, useState } from "react";
 import { PropertyCard } from "@/components/property/PropertyCard";
 import { FilterDrawer } from "@/components/search/FilterDrawer";
 import { DEMO_PROPERTIES } from "@/data/demo-properties";
@@ -47,13 +47,7 @@ function DiscoveryInner({ defaultType, defaultView = "list", title, subtitle }: 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [initialLoading, setInitialLoading] = useState(true);
   const cardRefs = useRef<Map<string, HTMLElement>>(new Map());
-
-  useEffect(() => {
-    const t = window.setTimeout(() => setInitialLoading(false), 450);
-    return () => window.clearTimeout(t);
-  }, []);
 
   const results = useMemo(
     () => applySort(applyFilters(DEMO_PROPERTIES, filters), sort),
@@ -80,13 +74,7 @@ function DiscoveryInner({ defaultType, defaultView = "list", title, subtitle }: 
 
   const listContent = (
     <>
-      {initialLoading ? (
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <CardSkeleton key={i} />
-          ))}
-        </div>
-      ) : results.length === 0 ? (
+      {results.length === 0 ? (
         <EmptyState
           title="No properties match your search"
           message="Try widening your budget, choosing a different locality, or clearing your filters."
@@ -135,7 +123,7 @@ function DiscoveryInner({ defaultType, defaultView = "list", title, subtitle }: 
 
       {/* Toolbar */}
       <div className="mt-6 flex flex-wrap items-center gap-2.5">
-        <div className="relative min-w-[200px] flex-1">
+        <div className="relative w-full min-w-0 sm:w-auto sm:min-w-[200px] sm:flex-1">
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden="true" />
           <label htmlFor="discovery-search" className="sr-only">
             Search by locality, title or type
@@ -161,7 +149,7 @@ function DiscoveryInner({ defaultType, defaultView = "list", title, subtitle }: 
 
         <button
           onClick={() => setDrawerOpen(true)}
-          className="relative flex h-12 items-center gap-2 rounded-full border border-line bg-white px-5 text-[15px] font-medium text-ink transition hover:border-ink/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+          className="relative flex h-12 shrink-0 items-center gap-2 rounded-full border border-line bg-white px-5 text-[15px] font-medium text-ink transition hover:border-ink/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
         >
           <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
           Filters
@@ -173,38 +161,43 @@ function DiscoveryInner({ defaultType, defaultView = "list", title, subtitle }: 
         </button>
 
         <label className="sr-only" htmlFor="sort-select">Sort results</label>
-        <div className="relative">
+        <div className="relative min-w-0 flex-1 sm:flex-none">
           <ArrowUpDown className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden="true" />
           <select
             id="sort-select"
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="h-12 appearance-none rounded-full border border-line bg-white pl-11 pr-9 text-[15px] font-medium text-ink transition focus:border-ink focus:outline-none focus:ring-2 focus:ring-ink/10"
+            className="h-12 w-full cursor-pointer appearance-none rounded-full border border-line bg-white pl-11 pr-10 text-[15px] font-medium text-ink transition focus:border-ink focus:outline-none focus:ring-2 focus:ring-ink/10 sm:w-auto"
           >
             <option value="recent">Recently listed</option>
             <option value="price-asc">Price: low to high</option>
             <option value="price-desc">Price: high to low</option>
           </select>
+          <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden="true" />
         </div>
 
-        <div className="flex rounded-full border border-line bg-white p-1" role="group" aria-label="View">
+        <div className="flex shrink-0 rounded-full border border-line bg-white p-1" role="group" aria-label="View">
           <button
             onClick={() => setView("list")}
             aria-pressed={view === "list"}
+            aria-label="List view"
             className={`flex h-10 items-center gap-1.5 rounded-full px-4 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink ${
               view === "list" ? "bg-ink text-white" : "text-stone2 hover:text-ink"
             }`}
           >
-            <List className="h-4 w-4" aria-hidden="true" /> List
+            <List className="h-4 w-4" aria-hidden="true" />
+            <span className="hidden sm:inline">List</span>
           </button>
           <button
             onClick={() => setView("map")}
             aria-pressed={view === "map"}
+            aria-label="Map view"
             className={`flex h-10 items-center gap-1.5 rounded-full px-4 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink ${
               view === "map" ? "bg-ink text-white" : "text-stone2 hover:text-ink"
             }`}
           >
-            <MapIcon className="h-4 w-4" aria-hidden="true" /> Map
+            <MapIcon className="h-4 w-4" aria-hidden="true" />
+            <span className="hidden sm:inline">Map</span>
           </button>
         </div>
       </div>

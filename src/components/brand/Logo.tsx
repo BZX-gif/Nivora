@@ -36,14 +36,14 @@ export function Logo({ variant = "horizontal", theme = "dark", className = "", h
     ) : (
       <span className={`inline-flex items-center gap-2.5 ${color}`}>
         <LogoSymbol className="h-8 w-8 shrink-0" />
-        <span className="text-[19px] font-semibold tracking-[0.32em]">NIVORA</span>
+        <span className="text-[19px] font-semibold leading-none tracking-[0.28em]">NIVORA</span>
         <span className="sr-only">NIVORA — Find your place.</span>
       </span>
     );
 
   if (!href) return <span className={className}>{inner}</span>;
   return (
-    <Link href={href} className={`inline-flex rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 ${className}`} aria-label="NIVORA home">
+    <Link href={href} className={`inline-flex min-h-[44px] items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 ${className}`} aria-label="NIVORA home">
       {inner}
     </Link>
   );

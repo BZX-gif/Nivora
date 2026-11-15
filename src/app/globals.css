@@ -165,3 +165,83 @@ body {
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* Map controls: generous, legible touch targets */
+.leaflet-control-zoom a,
+.leaflet-bar a {
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  font-size: 19px !important;
+  color: #151515 !important;
+  background: #ffffff !important;
+  border-color: #eaeae7 !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: #f7f7f5 !important;
+}
+
+.leaflet-control-attribution {
+  font-size: 10px !important;
+  background: rgba(255, 255, 255, 0.86) !important;
+  color: #707070 !important;
+}
+
+/* Hide the dashboard's mobile tab-strip scrollbar without disabling scrolling */
+[scrollbar-width="none"]::-webkit-scrollbar {
+  display: none;
+}
+
+/* Locality count marker shown while zoomed out */
+.nivora-marker--group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.nivora-marker--group::after {
+  bottom: -4px;
+  width: 7px;
+  height: 7px;
+}
+
+/* Grouped locality popup */
+.nivora-popup--group .nivora-popup-body {
+  gap: 8px;
+  padding: 14px;
+}
+
+.nivora-popup-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 0 !important;
+  padding: 6px 0;
+  border-top: 1px solid #eaeae7;
+  text-decoration: none;
+}
+
+.nivora-popup-row strong {
+  font-size: 14px;
+  color: #151515;
+}
+
+.nivora-popup-row span {
+  font-size: 12px;
+  color: #707070;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nivora-popup-row:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

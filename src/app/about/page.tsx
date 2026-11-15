@@ -62,8 +62,8 @@ export default function AboutPage() {
             contact details are illustrative and fictional.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/explore" className="bg-white text-ink hover:bg-mist">Explore properties</ButtonLink>
-            <ButtonLink href="/list-property" variant="ghost" className="text-white hover:bg-white/10">List your property</ButtonLink>
+            <ButtonLink href="/explore" variant="light">Explore properties</ButtonLink>
+            <ButtonLink href="/list-property" variant="ghostlight">List your property</ButtonLink>
           </div>
         </div>
       </Reveal>

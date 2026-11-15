@@ -1,61 +1,118 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { CATEGORIES, LOCALITIES, type ListingType } from "@/types/property";
 
-const BUDGETS = [
+const BUY_BUDGETS = [
   { label: "Any budget", min: "", max: "" },
   { label: "Under ₹50 Lakh", min: "", max: "5000000" },
   { label: "₹50 Lakh – ₹1 Cr", min: "5000000", max: "10000000" },
   { label: "₹1 Cr – ₹2 Cr", min: "10000000", max: "20000000" },
   { label: "₹2 Cr+", min: "20000000", max: "" },
+];
+
+const RENT_BUDGETS = [
+  { label: "Any budget", min: "", max: "" },
   { label: "Under ₹30k/mo", min: "", max: "30000" },
   { label: "₹30k – ₹60k/mo", min: "30000", max: "60000" },
   { label: "₹60k+/mo", min: "60000", max: "" },
 ];
 
-export function SearchBar({ compact = false }: { compact?: boolean }) {
+function Field({
+  id,
+  label,
+  value,
+  onChange,
+  className = "",
+  children,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className={`min-w-0 rounded-2xl bg-mist px-3.5 py-2 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-ink/15 ${className}`}
+    >
+      <label
+        htmlFor={id}
+        className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-muted"
+      >
+        {label}
+      </label>
+      <div className="relative">
+        <select
+          id={id}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          title={value || undefined}
+          className="h-10 w-full cursor-pointer appearance-none truncate bg-transparent pr-6 text-[15px] font-medium text-ink focus:outline-none"
+        >
+          {children}
+        </select>
+        <ChevronDown
+          className="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-stone2"
+          aria-hidden="true"
+        />
+      </div>
+    </div>
+  );
+}
+
+export function SearchBar() {
   const router = useRouter();
   const [type, setType] = useState<ListingType>("buy");
   const [locality, setLocality] = useState("");
   const [category, setCategory] = useState("");
-  const [budget, setBudget] = useState("");
+  const [budget, setBudget] = useState("Any budget");
+
+  const budgets = type === "buy" ? BUY_BUDGETS : RENT_BUDGETS;
+
+  const changeType = (t: ListingType) => {
+    setType(t);
+    setBudget("Any budget"); // buy and rent ranges are different scales
+  };
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const params = new URLSearchParams();
     if (locality) params.set("locality", locality);
     if (category) params.set("category", category);
-    const b = BUDGETS.find((x) => x.label === budget);
+    const b = budgets.find((x) => x.label === budget);
     if (b?.min) params.set("minPrice", b.min);
     if (b?.max) params.set("maxPrice", b.max);
     const qs = params.toString();
     router.push(`/${type}${qs ? `?${qs}` : ""}`);
   };
 
-  const selectClass =
-    "h-12 w-full appearance-none rounded-xl border border-line bg-white px-3.5 pr-8 text-[15px] text-ink transition focus:border-ink focus:outline-none focus:ring-2 focus:ring-ink/10";
-
   return (
     <form
       onSubmit={submit}
-      className={`w-full rounded-3xl border border-line bg-white p-2 shadow-lift sm:rounded-full ${compact ? "" : ""}`}
+      className="w-full rounded-3xl border border-line bg-white p-2.5 shadow-lift"
       role="search"
       aria-label="Search properties"
     >
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-        <div className="flex rounded-full bg-mist p-1" role="tablist" aria-label="Buy or rent">
+      <div className="grid grid-cols-2 gap-2 lg:grid-cols-[auto_1.4fr_1fr_1fr_auto] lg:items-stretch">
+        {/* Buy / Rent — full width on mobile, compact pill on desktop */}
+        <div
+          className="col-span-2 flex rounded-2xl bg-mist p-1 lg:col-span-1 lg:self-stretch"
+          role="tablist"
+          aria-label="Buy or rent"
+        >
           {(["buy", "rent"] as ListingType[]).map((t) => (
             <button
               key={t}
               type="button"
               role="tab"
               aria-selected={type === t}
-              onClick={() => setType(t)}
-              className={`h-10 flex-1 rounded-full px-6 text-[15px] font-medium capitalize transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink sm:flex-none ${
-                type === t ? "bg-ink text-white shadow" : "text-stone2 hover:text-ink"
+              onClick={() => changeType(t)}
+              className={`h-10 flex-1 rounded-xl text-[15px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink lg:flex-none lg:px-6 ${
+                type === t ? "bg-ink text-white shadow-sm" : "text-stone2 hover:text-ink"
               }`}
             >
               {t === "buy" ? "Buy" : "Rent"}
@@ -63,32 +120,41 @@ export function SearchBar({ compact = false }: { compact?: boolean }) {
           ))}
         </div>
 
-        <label className="sr-only" htmlFor="search-locality">Locality</label>
-        <select id="search-locality" value={locality} onChange={(e) => setLocality(e.target.value)} className={selectClass}>
+        <Field
+          id="search-locality"
+          label="Locality"
+          value={locality}
+          onChange={setLocality}
+          className="col-span-2 lg:col-span-1"
+        >
           <option value="">City or locality</option>
           {LOCALITIES.map((l) => (
-            <option key={l} value={l}>{l}, Jaipur</option>
+            <option key={l} value={l}>
+              {l}, Jaipur
+            </option>
           ))}
-        </select>
+        </Field>
 
-        <label className="sr-only" htmlFor="search-category">Property type</label>
-        <select id="search-category" value={category} onChange={(e) => setCategory(e.target.value)} className={selectClass}>
-          <option value="">Property type</option>
+        <Field id="search-category" label="Property type" value={category} onChange={setCategory}>
+          <option value="">Any type</option>
           {CATEGORIES.map((c) => (
-            <option key={c} value={c}>{c}</option>
+            <option key={c} value={c}>
+              {c}
+            </option>
           ))}
-        </select>
+        </Field>
 
-        <label className="sr-only" htmlFor="search-budget">Budget</label>
-        <select id="search-budget" value={budget} onChange={(e) => setBudget(e.target.value)} className={selectClass}>
-          {BUDGETS.map((b) => (
-            <option key={b.label} value={b.label}>{b.label}</option>
+        <Field id="search-budget" label="Budget" value={budget} onChange={setBudget}>
+          {budgets.map((b) => (
+            <option key={b.label} value={b.label}>
+              {b.label}
+            </option>
           ))}
-        </select>
+        </Field>
 
         <button
           type="submit"
-          className="flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-7 text-[15px] font-medium text-white transition hover:bg-coal active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2"
+          className="col-span-2 flex h-12 items-center justify-center gap-2 rounded-2xl bg-ink px-6 text-[15px] font-medium text-white transition hover:bg-coal active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 lg:col-span-1 lg:h-auto lg:min-w-[132px]"
         >
           <Search className="h-4 w-4" aria-hidden="true" />
           Search
