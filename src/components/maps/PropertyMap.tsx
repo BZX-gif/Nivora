@@ -100,7 +100,7 @@ export function PropertyMap({
       marker.on("mouseout", () => onHoverRef.current(null));
       marker.bindPopup(
         `<div class="nivora-popup">
-           <img src="${p.images[0]}" alt="" />
+           <img src="${p.images[0]}" alt="" onerror="this.style.display='none'" />
            <div class="nivora-popup-body">
              <strong>${formatPrice(p.price, p.listingType)}</strong>
              <span>${p.title}</span>

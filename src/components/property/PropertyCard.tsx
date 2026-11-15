@@ -73,47 +73,62 @@ export function PropertyCard({ property: p, highlighted = false, onHover, onSele
           : "border-line shadow-card hover:-translate-y-0.5 hover:shadow-lift"
       }`}
     >
-      <Link
-        href={`/property/${p.id}`}
-        onClick={() => onSelect?.(p.id)}
-        className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ink"
-        aria-label={`View details: ${p.title}`}
-      >
-        <div className="relative aspect-[4/3] overflow-hidden bg-mist">
-          <SafeImage
-            src={p.images[0]}
-            alt={`${p.title} — ${p.locality}, ${p.city}`}
-            className="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-          />
-          <div className="absolute left-3 top-3 flex gap-1.5">
-            <span className="rounded-full bg-ink/85 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm">
-              {p.listingType === "buy" ? "For sale" : "For rent"}
-            </span>
-            <span className="rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-ink backdrop-blur-sm">
-              {p.category}
-            </span>
+      {/* Image — links to details */}
+      <div className="relative">
+        <Link
+          href={`/property/${p.id}`}
+          onClick={() => onSelect?.(p.id)}
+          className="block"
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          <div className="relative aspect-[4/3] overflow-hidden bg-mist">
+            <SafeImage
+              src={p.images[0]}
+              alt={`${p.title} — ${p.locality}, ${p.city}`}
+              className="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+            />
+            <div className="absolute left-3 top-3 flex gap-1.5">
+              <span className="rounded-full bg-ink/85 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm">
+                {p.listingType === "buy" ? "For sale" : "For rent"}
+              </span>
+              <span className="rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-ink backdrop-blur-sm">
+                {p.category}
+              </span>
+            </div>
           </div>
-          <button
-            onClick={handleFav}
-            aria-label={fav ? "Remove from saved properties" : "Save this property"}
-            aria-pressed={fav}
-            className={`absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full backdrop-blur-sm transition-all duration-200 active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink ${
-              fav ? "bg-ink text-white" : "bg-white/90 text-ink hover:bg-white"
-            }`}
-          >
-            <Heart className={`h-4 w-4 ${fav ? "fill-current" : ""}`} />
-          </button>
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-ink/45 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
-        </div>
+        </Link>
 
-        <div className="p-4 sm:p-5">
+        {/* Favourite — sibling of the link (never nested inside it) */}
+        <button
+          onClick={handleFav}
+          aria-label={fav ? "Remove from saved properties" : "Save this property"}
+          aria-pressed={fav}
+          className={`absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full backdrop-blur-sm transition-all duration-200 active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink ${
+            fav ? "bg-ink text-white" : "bg-white/90 text-ink hover:bg-white"
+          }`}
+        >
+          <Heart className={`h-4 w-4 ${fav ? "fill-current" : ""}`} />
+        </button>
+      </div>
+
+      {/* Content — links to details */}
+      <div className="p-4 sm:p-5">
+        <Link
+          href={`/property/${p.id}`}
+          onClick={() => onSelect?.(p.id)}
+          className="block rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+          aria-label={`View details: ${p.title}`}
+        >
           <div className="flex items-baseline justify-between gap-3">
             <p className="text-xl font-semibold tracking-tight text-ink">
               {formatPrice(p.price, p.listingType)}
             </p>
             <span className="shrink-0 text-[11px] font-medium text-muted">{p.advertiser.type}</span>
           </div>
-          <h3 className="mt-1.5 line-clamp-1 text-[15px] font-medium text-ink">{p.title}</h3>
+          <h3 className="mt-1.5 line-clamp-2 min-h-[2.6em] text-[15px] font-medium leading-snug text-ink">
+            {p.title}
+          </h3>
           <p className="mt-1 flex items-center gap-1 text-sm text-stone2">
             <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             {p.locality}, {p.city}
@@ -134,8 +149,8 @@ export function PropertyCard({ property: p, highlighted = false, onHover, onSele
             </span>
             {p.furnishing && <span className="text-muted">{p.furnishing}</span>}
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
     </article>
   );
 }

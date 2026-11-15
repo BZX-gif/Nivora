@@ -78,6 +78,14 @@ export function Navbar() {
 
             {user ? (
               <div className="relative">
+                {accountOpen && (
+                  <button
+                    aria-label="Close account menu"
+                    onClick={() => setAccountOpen(false)}
+                    className="fixed inset-0 z-10 cursor-default"
+                    tabIndex={-1}
+                  />
+                )}
                 <button
                   onClick={() => setAccountOpen((v) => !v)}
                   aria-expanded={accountOpen}
@@ -97,7 +105,7 @@ export function Navbar() {
                       exit={{ opacity: 0, y: 6, scale: 0.98 }}
                       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                       role="menu"
-                      className="absolute right-0 top-12 w-56 overflow-hidden rounded-2xl border border-line bg-white py-2 shadow-pop"
+                      className="absolute right-0 top-12 z-20 w-56 overflow-hidden rounded-2xl border border-line bg-white py-2 shadow-pop"
                     >
                       <p className="border-b border-line px-4 py-2.5 text-xs text-muted">
                         Signed in as <span className="font-medium text-ink">{user.email}</span>
@@ -230,7 +238,7 @@ export function Navbar() {
           {[
             { href: "/", label: "Home", icon: Home, active: pathname === "/" },
             { href: "/buy", label: "Buy", icon: KeyRound, active: isActive("/buy") },
-            { href: "/rent", label: "Rent", icon: Home, active: isActive("/rent") },
+            { href: "/rent", label: "Rent", icon: Building2, active: isActive("/rent") },
             { href: "/saved", label: "Saved", icon: Heart, active: isActive("/saved") },
             { href: user ? "/account" : "/sign-in", label: "Account", icon: User, active: isActive("/account") || isActive("/dashboard") },
           ].map((l) => (
