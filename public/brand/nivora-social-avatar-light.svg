@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none">
+  <title>NIVORA</title>
+  <rect width="1024" height="1024" rx="0" fill="#F7F7F5"/>
+  <g transform="translate(157.013 157.013) scale(11.09333)">
+    <path fill="#151515" d="M8 11A3 3 0 0 1 11 8L19 8A3 3 0 0 1 22 11L22 42L53 42A3 3 0 0 1 56 45L56 53A3 3 0 0 1 53 56L11 56A3 3 0 0 1 8 53Z"/><path fill="#151515" d="M32 11A3 3 0 0 1 35 8L53 8A3 3 0 0 1 56 11L56 29A3 3 0 0 1 53 32L35 32A3 3 0 0 1 32 29Z"/>
+  </g>
+</svg>

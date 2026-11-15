@@ -7,3 +7,6 @@ build/
 *.log
 .DS_Store
 *.tsbuildinfo
+
+# local stand-in photographs used only when capturing screenshots
+docs/screens/.stand-ins/
