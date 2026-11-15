@@ -55,12 +55,12 @@ export function Footer() {
               <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-white/40">
                 {col.title}
               </h3>
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-3 space-y-0.5">
                 {col.links.map((l) => (
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="inline-flex min-h-[28px] items-center rounded text-[15px] text-white/75 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                      className="-mx-2 inline-flex min-h-[36px] items-center rounded px-2 text-[15px] text-white/75 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                     >
                       {l.label}
                     </Link>

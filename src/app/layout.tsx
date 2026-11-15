@@ -29,16 +29,34 @@ export const metadata: Metadata = {
     description:
       "Discover properties, explore neighbourhoods, and connect directly with the people advertising them.",
     type: "website",
-    images: ["/brand/nivora-app-icon.svg"],
+    images: [
+      {
+        url: "/brand/nivora-og.png",
+        width: 1200,
+        height: 630,
+        alt: "NIVORA — Find a place that feels like yours.",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "NIVORA — Find your place.",
     description: "Discover properties and connect directly with advertisers.",
+    images: ["/brand/nivora-og.png"],
   },
+  /**
+   * Icon set — SVG first for crispness, PNG fallbacks for platforms that ignore
+   * SVG favicons and for iOS home-screen bookmarks, which require PNG.
+   */
   icons: {
-    icon: "/brand/nivora-favicon.svg",
-    apple: "/brand/nivora-app-icon.svg",
+    icon: [
+      { url: "/brand/nivora-favicon-16.svg", sizes: "16x16", type: "image/svg+xml" },
+      { url: "/brand/nivora-favicon.svg", sizes: "32x32", type: "image/svg+xml" },
+      { url: "/brand/favicon-16.png", sizes: "16x16", type: "image/png" },
+      { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
+    ],
+    shortcut: "/brand/favicon-32.png",
+    apple: [{ url: "/brand/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 

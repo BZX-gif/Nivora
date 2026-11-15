@@ -1,10 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
-  <title>NIVORA app icon</title>
+  <title>NIVORA</title>
   <rect width="512" height="512" rx="112" fill="#151515"/>
-  <g transform="translate(96 96) scale(5)">
-    <path fill="#FFFFFF" d="M8 24 32 10l24 14h-7L32 15.5 15 24H8Z"/>
-    <path fill="#FFFFFF" d="M12 24h7v28h-7V24Z"/>
-    <path fill="#FFFFFF" d="M45 24h7v28h-7V24Z"/>
-    <path fill="#FFFFFF" d="M19 24h7.5L45 52h-7.5L19 24Z"/>
+  <g transform="translate(64.853 64.853) scale(5.97333)">
+    <path fill="#FFFFFF" d="M8 11A3 3 0 0 1 11 8L19 8A3 3 0 0 1 22 11L22 42L53 42A3 3 0 0 1 56 45L56 53A3 3 0 0 1 53 56L11 56A3 3 0 0 1 8 53Z"/><path fill="#FFFFFF" d="M32 11A3 3 0 0 1 35 8L53 8A3 3 0 0 1 56 11L56 29A3 3 0 0 1 53 32L35 32A3 3 0 0 1 32 29Z"/>
   </g>
 </svg>
